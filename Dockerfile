@@ -1,8 +1,8 @@
-ARG DEBIAN_VERSION=debian-11-v4.6
+ARG DEBIAN_VERSION=debian-12-v4.6
 FROM jlesage/baseimage-gui:${DEBIAN_VERSION}
 
-ARG DEBIAN_VERSION=Debian-11
-ARG VERACRYPT_VERSION=1.26.19
+ARG DEBIAN_VERSION=Debian-12
+ARG VERACRYPT_VERSION=1.26.18
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
@@ -35,15 +35,14 @@ RUN \
         sudo \
         libfuse2 \
         dmsetup \
-        libwxgtk3.0-gtk3-0v5 \
+        libwxgtk3.2-1 \
         procps \
         libayatana-appindicator3-1 \
         nano \
         libpcsclite1 \
         pcscd \
         btrfs-progs \
-        exfat-fuse \
-        exfat-utils
+        exfatprogs
 
 #########################################
 ##    REPOSITORIES AND DEPENDENCIES    ##
