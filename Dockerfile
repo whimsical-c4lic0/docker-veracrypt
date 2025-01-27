@@ -1,4 +1,4 @@
-ARG DEBIAN_VERSION=debian-11-v4
+ARG DEBIAN_VERSION=debian-11-v4.6
 FROM jlesage/baseimage-gui:${DEBIAN_VERSION}
 
 ARG DEBIAN_VERSION=Debian-11
