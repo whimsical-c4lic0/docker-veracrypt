@@ -41,8 +41,7 @@ RUN \
         nano \
         libpcsclite1 \
         pcscd \
-        btrfs-progs \
-        exfatprogs
+        btrfs-progs
 
 #########################################
 ##    REPOSITORIES AND DEPENDENCIES    ##
@@ -68,7 +67,7 @@ COPY --chmod=777 veracrypt.sh /etc/cont-init.d/90-veracrypt.sh
 COPY --chmod=777 sudoers.sh /etc/cont-init.d/01-veracrypt-sudoers.sh
 
 # Add dismount script
-COPY --chmod=777 dismount /etc/cont-finish.d/dismount
+COPY --chmod=777 dismount.sh /etc/cont-finish.d/dismount.sh
 
 # Fix PAM configuration
 RUN DEBIAN_FRONTEND=noninteractive pam-auth-update --package --remove unix
