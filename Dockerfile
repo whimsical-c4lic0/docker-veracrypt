@@ -2,7 +2,7 @@ ARG DEBIAN_VERSION=debian-11-v4.6
 FROM jlesage/baseimage-gui:${DEBIAN_VERSION}
 
 ARG DEBIAN_VERSION=Debian-11
-ARG VERACRYPT_VERSION=1.26.7
+ARG VERACRYPT_VERSION=1.26.19
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
