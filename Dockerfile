@@ -1,10 +1,8 @@
-ARG DEBIAN_VERSION=debian-10-v4
+ARG DEBIAN_VERSION=debian-11-v4
 FROM jlesage/baseimage-gui:${DEBIAN_VERSION}
 
-ARG DEBIAN_VERSION=Debian-10
+ARG DEBIAN_VERSION=Debian-11
 ARG VERACRYPT_VERSION=1.26.7
-
-MAINTAINER dcflachs
 
 #########################################
 ##        ENVIRONMENTAL CONFIG         ##
@@ -25,10 +23,10 @@ ENV DISPLAY_WIDTH=1280
 ENV DISPLAY_HEIGHT=720
 
 # Use a secure connection to the GUI
-ENV SECURE_CONNECTION 1
+ENV SECURE_CONNECTION=1
 
 # Clean tmp on startup
-ENV CLEAN_TMP_DIR 1
+ENV CLEAN_TMP_DIR=1
 
 # Install packages needed for app
 RUN \
@@ -43,7 +41,9 @@ RUN \
         nano \
         libpcsclite1 \
         pcscd \
-        btrfs-progs
+        btrfs-progs \
+        exfat-fuse \
+        exfat-utils
 
 #########################################
 ##    REPOSITORIES AND DEPENDENCIES    ##
