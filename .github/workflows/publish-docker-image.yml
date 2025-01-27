@@ -1,0 +1,60 @@
+name: Veracrypt CI
+
+on:
+  schedule:
+    - cron:  '0 12 * * 0'
+  push:
+    branches: [ master ]
+    tags:
+      - 'v'
+  workflow_dispatch:
+
+jobs:
+  build-veracrypt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Build Repo
+        uses: actions/checkout@v4
+        with:
+          path: ./build
+
+      - name: Extract metadata (tags, label) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.actor }}/veracrypt
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v6
+        with:
+          context: ./build
+          platforms: linux/amd64
+          push: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: ${{ steps.eta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
